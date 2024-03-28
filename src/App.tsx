@@ -1,3 +1,11 @@
+import Navbar from "./components/Navbar";
+import TagsTable from "./components/TagsTable";
+
 export default function App() {
-  return <div>App</div>;
+  return (
+    <>
+      <Navbar />
+      <TagsTable />
+    </>
+  );
 }
