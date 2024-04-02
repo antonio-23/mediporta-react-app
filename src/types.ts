@@ -4,5 +4,5 @@ export type Data = {
 };
 export type Columns = {
   Header: string;
-  accessor: "name" | "count";
+  accessor: "name" | "count" | "number";
 };

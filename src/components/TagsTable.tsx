@@ -2,13 +2,7 @@ import {
   Alert,
   Box,
   Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Pagination,
   Paper,
-  Select,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -23,6 +17,8 @@ import { useMemo } from "react";
 import { useFetch } from "../useFetch";
 import { useStore } from "../store/store";
 import Spinner from "./Spinner";
+import PageSizeSelector from "./PageSizeSelector";
+import PaginationComponent from "./PaginationComponent";
 
 export default function TagsTable() {
   const { data, isLoading, isError } = useStore();
@@ -31,6 +27,11 @@ export default function TagsTable() {
 
   const columns: Columns[] = useMemo(
     () => [
+      {
+        Header: "No.",
+        accessor: "number",
+        Cell: ({ row }) => <span>{row.index + 1}</span>,
+      },
       {
         Header: "Name",
         accessor: "name",
@@ -87,22 +88,7 @@ export default function TagsTable() {
               marginBottom: 2,
             }}
           >
-            <FormControl fullWidth>
-              <InputLabel>View</InputLabel>
-              <Select
-                label='View'
-                defaultValue={10}
-                onChange={(e) => {
-                  setPageSize(Number(e.target.value));
-                }}
-              >
-                {[5, 10, 20].map((pageSize) => (
-                  <MenuItem key={pageSize} value={pageSize}>
-                    {pageSize}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <PageSizeSelector onPageSizeChange={setPageSize} />
           </Box>
 
           <TableContainer component={Paper} elevation={3}>
@@ -151,14 +137,11 @@ export default function TagsTable() {
               marginTop: 2,
             }}
           >
-            <Stack spacing={2}>
-              <Pagination
-                count={Math.ceil(pageOptions.length)}
-                color='primary'
-                page={state.pageIndex + 1}
-                onChange={(event, value) => gotoPage(value - 1)}
-              />
-            </Stack>
+            <PaginationComponent
+              pageCount={Math.ceil(pageOptions.length)}
+              pageIndex={state.pageIndex}
+              onPageChange={gotoPage}
+            />
           </Box>
         </>
       )}
