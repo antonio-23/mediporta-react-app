@@ -2,16 +2,18 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 interface PageSizeSelectorProps {
   onPageSizeChange: (pageSize: number) => void;
+  label: string;
 }
 
 export default function PageSizeSelector({
   onPageSizeChange,
+  label,
 }: PageSizeSelectorProps) {
   return (
     <FormControl fullWidth>
-      <InputLabel>Page size</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <Select
-        label='Page size'
+        label={label}
         defaultValue={10}
         onChange={(e) => {
           onPageSizeChange(Number(e.target.value));

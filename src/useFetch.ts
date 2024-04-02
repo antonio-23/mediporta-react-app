@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useStore } from "./store/store";
 
+const BASE_URL =
+  "https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow";
+
 export function useFetch() {
   const { setIsLoading, setIsError, setData } = useStore();
 
@@ -12,10 +15,7 @@ export function useFetch() {
         setIsLoading(true);
         setIsError("");
 
-        const response = await fetch(
-          "https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow",
-          { signal: controller.signal }
-        );
+        const response = await fetch(BASE_URL, { signal: controller.signal });
 
         if (!response.ok)
           throw new Error("Something went wrong with fetching the data.");

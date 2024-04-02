@@ -88,7 +88,10 @@ export default function TagsTable() {
               marginBottom: 2,
             }}
           >
-            <PageSizeSelector onPageSizeChange={setPageSize} />
+            <PageSizeSelector
+              onPageSizeChange={setPageSize}
+              label='Page size'
+            />
           </Box>
 
           <TableContainer component={Paper} elevation={3}>
